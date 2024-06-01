@@ -1,0 +1,96 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+nav {
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+    position: relative;
+}
+nav .logo {
+    font-size: 1.5em;
+}
+nav .nav-links {
+    display: flex;
+    align-items: center;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-content a:hover {
+    background-color: #575757;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.container {
+    padding: 20px;
+}
+.card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.card img {
+    max-width: 100%;
+    border-radius: 8px;
+}
+.card .details {
+    margin-top: 10px;
+}
+.card .price {
+    color: green;
+    font-size: 1.2em;
+    margin-top: 10px;
+}
+.card .actions {
+    margin-top: 10px;
+}
+.card .actions button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin: 5px;
+    cursor: pointer;
+}
+.card .actions .add-to-cart {
+    background-color: #28a745;
+    color: white;
+}
+.card .actions .favorite {
+    background-color: #ffc107;
+    color: white;
+}
+.card .rating {
+    margin-top: 10px;
+}
+.card .rating span {
+    color: gold;
+}
