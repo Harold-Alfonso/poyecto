@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Página de Confirmación de Edad</title>
     <link rel="stylesheet" href="css/stylesIndex.css" />
+    <script>
+      function handleYes() {
+        alert('Bienvenido')
+        window.location.href = '/templates/home.html'
+      }
+
+      function handleNo() {
+        alert('Debe ser mayor de edad para ingresar')
+        window.location.href = 'index.html'
+      }
+    </script>
   </head>
   <body>
     <div class="container">
@@ -17,8 +28,8 @@
           <p>Debes tener 18 años de edad o más para ingresar al sitio</p>
         </div>
         <div class="buttons">
-          <button class="btn no">NO</button>
-          <button class="btn yes">SI</button>
+          <button class="btn no" onclick="handleNo()">NO</button>
+          <button class="btn yes" onclick="handleYes()">SI</button>
         </div>
       </div>
       <div class="background-image">
