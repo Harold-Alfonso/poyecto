@@ -133,3 +133,11 @@ export const CrearUsuario = async (
 //mensaje de creacion de cuenta
 
 export const mensajeA = () => sendEmailVerification(auth.currentUser)
+
+// Función para obtener documentos por descripción (categoria)
+export async function Getdescripcion(categoria) {
+  const q = query(collection(db, 'Productos'), where('descripcion', '==', categoria));
+  const querySnapshot = await getDocs(q);
+  console.log("Número de documentos encontrados:", querySnapshot.size);
+  return querySnapshot;
+}
