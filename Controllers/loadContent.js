@@ -10,8 +10,10 @@ function loadContent(page) {
         });
       }
       if (page === 'cerveza.html') {
-        initializeRating();
+        import('../Controllers/vercervezas.js');
+          
       }
     })
     .catch(error => console.error('Error loading content:', error));
 }
+
