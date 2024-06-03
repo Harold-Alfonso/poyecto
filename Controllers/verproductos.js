@@ -1,9 +1,9 @@
-import { Getcategorias } from '../Controllers/firebase.js';
+import { Getcategorias, Setcarrito, Getcarrito } from '../Controllers/firebase.js';
 
 const imprimir = document.getElementById('cont');
 
 async function Ver() {
-    const categorias = ['Cerveza','Aguardiente', 'Vodka', 'Whisky', 'Vinos y Champañas','Tequila','Ron','Ginebra','Brandy','No licores','Paquetes']; // Define las categorías a consultar
+    const categorias = ['Cerveza', 'Aguardiente', 'Vodka', 'Whisky', 'Vinos y Champañas', 'Tequila', 'Ron', 'Ginebra', 'Brandy', 'No licores', 'Paquetes']; // Define las categorías a consultar
 
     try {
         const querySnapshots = await Getcategorias(categorias);
@@ -25,7 +25,7 @@ async function Ver() {
                             <div class="card-body">
                                 <h5 class="card-title">${producto.name}</h5>
                                 <p class="card-text">${producto.precio}</p>
-                                <a href="#" class="btn btn-primary" onclick="agregarAlCarrito('${documentSnapshot.id}', '${producto.name}', '${producto.precio}', '${producto.urlproducto}')">Agregar al Carrito</a>
+                                <a href="#" class="btn btn-primary" onclick="agregarAlCarrito('${producto.codigo}', '${producto.name}', '${producto.precio}', '${producto.urlproducto}')">Agregar al Carrito</a>
                             </div>
                         </div>
                     </div>
@@ -42,7 +42,26 @@ async function Ver() {
 // Llama a Ver() directamente cuando la página se haya cargado
 Ver();
 
-window.agregarAlCarrito = function(id, nombre, precio, imagen) {
-    console.log('Agregar al carrito:', id, nombre, precio, imagen);
-    // Aquí puedes reutilizar la lógica de agregar al carrito de app.js
+window.agregarAlCarrito = function(codigo, nombre, precio, urlproducto) {
+    // Verificar si ya existe un producto con el mismo código
+    Getcarrito(codigo)
+        .then(docSnapshot => {
+            if (docSnapshot.exists()) {
+                // Si el producto ya existe, mostrar un alert
+                alert('Producto ya agregado anteriormente. Revise su carrito.');
+            } else {
+                // Si el producto no existe, agregarlo a la colección
+                Setcarrito(codigo, nombre, precio, urlproducto)
+                    .then(() => {
+                        alert('Producto agregado al carrito', codigo);
+                        // Aquí podrías implementar lógica adicional, como actualizar la interfaz de usuario
+                    })
+                    .catch(error => {
+                        console.error('Error al agregar producto al carrito:', error);
+                    });
+            }
+        })
+        .catch(error => {
+            console.error('Error al verificar producto en el carrito:', error);
+        });
 };
