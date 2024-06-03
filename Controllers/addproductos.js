@@ -4,7 +4,7 @@ async function guardar(event) {
     event.preventDefault();
     const cod = document.getElementById('code').value;
     const nombre = document.getElementById('name').value;
-    const descr = document.getElementById('desc').value;
+    const categ = document.getElementById('cate').value;
     const precio = document.getElementById('precio').value;
     const imgprod = document.getElementById('fileimg').files[0];
 
@@ -13,9 +13,11 @@ async function guardar(event) {
         if (imgprod) {
             urlarchivo = await archivoimg(imgprod, nombre);
         }
-        await Setregister(cod, nombre, descr, precio, urlarchivo);
+        await Setregister(cod, nombre, categ, precio, urlarchivo);
         alert('Registro exitoso');
-        window.location.href = '../Templates/agregar_produc.html';
+        document.getElementById('name').value = '';
+        document.getElementById('fileimg').value = '';
+
     } catch (e) {
         console.error('error', e);
         alert('Registro fallido');

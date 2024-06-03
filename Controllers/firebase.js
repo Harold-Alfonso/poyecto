@@ -46,11 +46,11 @@ const db = getFirestore(app)
 const storage = getStorage()
 
 //agregar datos con id
-export const Setregister = (codigo, name, descripcion, precio, urlproducto) =>
+export const Setregister = (codigo, name, categoria, precio, urlproducto) =>
   setDoc(doc(db, 'Productos', codigo), {
     codigo,
     name,
-    descripcion,
+    categoria,
     precio,
     urlproducto,
   })
@@ -135,9 +135,30 @@ export const CrearUsuario = async (
 export const mensajeA = () => sendEmailVerification(auth.currentUser)
 
 // Función para obtener documentos por descripción (categoria)
-export async function Getdescripcion(categoria) {
-  const q = query(collection(db, 'Productos'), where('descripcion', '==', categoria));
+export async function Getcategoria(categoria) {
+  const q = query(collection(db, 'Productos'), where('categoria', '==', categoria));
   const querySnapshot = await getDocs(q);
   console.log("Número de documentos encontrados:", querySnapshot.size);
   return querySnapshot;
+}
+
+export async function Getcategorias(categorias) {
+  const promises = categorias.map(async (categoria) => {
+      const q = query(collection(db, 'Productos'), where('categoria', '==', categoria));
+      return await getDocs(q);
+  });
+
+  // Esperar a que todas las consultas se resuelvan
+  const querySnapshots = await Promise.all(promises);
+
+  // Combinar todos los documentos obtenidos en un solo array
+  let combinedResults = [];
+  querySnapshots.forEach((snapshot) => {
+      snapshot.forEach((doc) => {
+          combinedResults.push(doc);
+      });
+  });
+
+  console.log("Número total de documentos encontrados:", combinedResults.length);
+  return combinedResults;
 }

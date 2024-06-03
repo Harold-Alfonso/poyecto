@@ -1,41 +1,48 @@
-import{Getregister} from '../Controllers/firebase.js'
+import { Getcategorias } from '../Controllers/firebase.js';
 
-const imprimir =  document.getElementById('cont')
+const imprimir = document.getElementById('cont');
 
-async function Ver(){
-    const cod=document.getElementById('code').value
+async function Ver() {
+    const categorias = ['Cerveza','Aguardiente', 'Vodka', 'Whisky', 'Vinos y Champañas','Tequila','Ron','Ginebra','Brandy','No licores','Paquetes']; // Define las categorías a consultar
 
     try {
-        const esperar = Getregister(cod)
-        const docSnap = await esperar
-        
-        if (docSnap.exists()) {
-            console.log("Document data:", docSnap.data());
-            let Html=""
-            Html=`
-                <div class="card" style="width: 18rem;">
-                <img src="${docSnap.data().urlproducto}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">${docSnap.data().name}</h5>
-                    <p class="card-text">${docSnap.data().codigo}</p>
-                    <p class="card-text">${docSnap.data().descripcion}</p>
-                    <p class="card-text">${docSnap.data().precio}</p>
+        const querySnapshots = await Getcategorias(categorias);
+        console.log("documentSnapshots:", querySnapshots);
 
-                    <a href="#" class="btn btn-primary">Delete</a>
-                    <a href="#" class="btn btn-primary">Update</a>
-                </div>
-                </div>
-            `
-            imprimir.innerHTML=Html
+        if (querySnapshots.length > 0) {
+            let Html = ""; // Inicializar el HTML de las tarjetas
+            querySnapshots.forEach((documentSnapshot) => {
+                const producto = documentSnapshot.data(); // Obtener los datos del documento
+                console.log("producto:", producto);
+                // Construir la tarjeta con los datos del producto
+                Html += `
+                    <div class="card-container" style="width:250px;">
+                        <div class="card">
+                            <div>
+                                <p class="card-text" style="float: right;">${producto.codigo}</p>
+                            </div>
+                            <img src="${producto.urlproducto}" class="card-img-top" alt="${producto.name}" style="width: 100px; height: auto;"> <!-- Aquí ajusta el tamaño de la imagen -->
+                            <div class="card-body">
+                                <h5 class="card-title">${producto.name}</h5>
+                                <p class="card-text">${producto.precio}</p>
+                                <a href="#" class="btn btn-primary" onclick="agregarAlCarrito('${documentSnapshot.id}', '${producto.name}', '${producto.precio}', '${producto.urlproducto}')">Agregar al Carrito</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            imprimir.innerHTML = Html; // Agregar las tarjetas al contenedor
         } else {
-        // docSnap.data() will be undefined in this case
-        console.log("No such document!");
+            console.log("No se encontraron documentos con la descripción especificada.");
         }
     } catch (error) {
-        console('error',error)
-    }  
+        console.error('Error obteniendo los productos:', error);
+    }
 }
+// Llama a Ver() directamente cuando la página se haya cargado
+Ver();
 
-window.addEventListener('DOMContentLoaded', async()=>{
-    search.addEventListener('click',Ver)
-})
+window.agregarAlCarrito = function(id, nombre, precio, imagen) {
+    console.log('Agregar al carrito:', id, nombre, precio, imagen);
+    // Aquí puedes reutilizar la lógica de agregar al carrito de app.js
+};

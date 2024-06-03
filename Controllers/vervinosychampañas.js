@@ -1,9 +1,9 @@
-import { Getcategoria } from '../Controllers/firebase.js';
+import { Getcategoria } from './firebase.js';
 
 const imprimir = document.getElementById('cont');
 
 async function Ver() {
-    const categoria = 'Cerveza'; 
+    const categoria = 'Vinos y Champañas'; 
 
     try {
         const querySnapshot = await Getcategoria(categoria);

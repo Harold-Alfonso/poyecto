@@ -3,7 +3,7 @@ import { Getcategoria } from '../Controllers/firebase.js';
 const imprimir = document.getElementById('cont');
 
 async function Ver() {
-    const categoria = 'Cerveza'; 
+    const categoria = 'No licores'; 
 
     try {
         const querySnapshot = await Getcategoria(categoria);
