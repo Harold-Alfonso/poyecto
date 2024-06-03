@@ -20,6 +20,7 @@ import {
 import {
   getFirestore,
   collection,
+  deleteDoc,
   addDoc,
   getDocs,
   setDoc,
@@ -54,6 +55,57 @@ export const Setregister = (codigo, name, categoria, precio, urlproducto) =>
     precio,
     urlproducto,
   })
+
+
+export const Setcarrito = (codigo, name, precio, urlproducto) =>
+  setDoc(doc(db, 'datoscarrito', codigo), {
+    codigo,
+    name,
+    precio,
+    urlproducto,
+  })
+
+// Constante para obtener la referencia a la colección "datoscarrito"
+export const Carritoref = collection(db, 'datoscarrito');
+
+// Constante para obtener todos los documentos de la colección "datoscarrito"
+export const GetCarritoDocs = async () => {
+    try {
+        const querySnapshot = await getDocs(Carritoref);
+        return querySnapshot;
+    } catch (error) {
+        console.error('Error obteniendo documentos del carrito:', error);
+        throw error;
+    }
+};
+
+
+export const Getcarrito = (codigo) => getDoc(doc(db, 'datoscarrito', codigo))
+
+// Función para eliminar un producto del carrito por su código
+export const EliminarProductoDelCarrito = async (codigo) => {
+  try {
+      await deleteDoc(doc(db, 'datoscarrito', codigo));
+      console.log('Producto eliminado del carrito:', codigo);
+  } catch (error) {
+      console.error('Error al eliminar producto del carrito:', error);
+      throw error;
+  }
+};
+
+export async function deleteCollection(collectionPath) {
+  const querySnapshot = await getDocs(collection(db, collectionPath));
+
+  querySnapshot.forEach(async (doc) => {
+    try {
+      await deleteDoc(doc.ref);
+      console.log(`Documento eliminado: ${doc.id}`);
+    } catch (error) {
+      console.error(`Error al eliminar documento ${doc.id}:`, error);
+    }
+  });
+}
+
 
 //Leer registro especifico
 export const Getregister = (codigo) => getDoc(doc(db, 'Productos', codigo))
