@@ -15,6 +15,8 @@ import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
   sendPasswordResetEmail,
+  GoogleAuthProvider,
+  FacebookAuthProvider,
 } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js'
 
 import {
@@ -45,6 +47,8 @@ const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
 const db = getFirestore(app)
 const storage = getStorage()
+const providerGoogle = new GoogleAuthProvider()
+const providerFabook = new FacebookAuthProvider()
 
 //agregar datos con id
 export const Setregister = (codigo, name, categoria, precio, urlproducto) =>
@@ -56,7 +60,6 @@ export const Setregister = (codigo, name, categoria, precio, urlproducto) =>
     urlproducto,
   })
 
-
 export const Setcarrito = (codigo, name, precio, urlproducto) =>
   setDoc(doc(db, 'datoscarrito', codigo), {
     codigo,
@@ -66,46 +69,44 @@ export const Setcarrito = (codigo, name, precio, urlproducto) =>
   })
 
 // Constante para obtener la referencia a la colección "datoscarrito"
-export const Carritoref = collection(db, 'datoscarrito');
+export const Carritoref = collection(db, 'datoscarrito')
 
 // Constante para obtener todos los documentos de la colección "datoscarrito"
 export const GetCarritoDocs = async () => {
-    try {
-        const querySnapshot = await getDocs(Carritoref);
-        return querySnapshot;
-    } catch (error) {
-        console.error('Error obteniendo documentos del carrito:', error);
-        throw error;
-    }
-};
-
+  try {
+    const querySnapshot = await getDocs(Carritoref)
+    return querySnapshot
+  } catch (error) {
+    console.error('Error obteniendo documentos del carrito:', error)
+    throw error
+  }
+}
 
 export const Getcarrito = (codigo) => getDoc(doc(db, 'datoscarrito', codigo))
 
 // Función para eliminar un producto del carrito por su código
 export const EliminarProductoDelCarrito = async (codigo) => {
   try {
-      await deleteDoc(doc(db, 'datoscarrito', codigo));
-      console.log('Producto eliminado del carrito:', codigo);
+    await deleteDoc(doc(db, 'datoscarrito', codigo))
+    console.log('Producto eliminado del carrito:', codigo)
   } catch (error) {
-      console.error('Error al eliminar producto del carrito:', error);
-      throw error;
+    console.error('Error al eliminar producto del carrito:', error)
+    throw error
   }
-};
+}
 
 export async function deleteCollection(collectionPath) {
-  const querySnapshot = await getDocs(collection(db, collectionPath));
+  const querySnapshot = await getDocs(collection(db, collectionPath))
 
   querySnapshot.forEach(async (doc) => {
     try {
-      await deleteDoc(doc.ref);
-      console.log(`Documento eliminado: ${doc.id}`);
+      await deleteDoc(doc.ref)
+      console.log(`Documento eliminado: ${doc.id}`)
     } catch (error) {
-      console.error(`Error al eliminar documento ${doc.id}:`, error);
+      console.error(`Error al eliminar documento ${doc.id}:`, error)
     }
-  });
+  })
 }
-
 
 //Leer registro especifico
 export const Getregister = (codigo) => getDoc(doc(db, 'Productos', codigo))
@@ -134,6 +135,13 @@ export const q = async (email) => {
     throw error
   }
 }
+
+// inicio con Google
+export const loginGoogle = () => signInWithPopup(auth, providerGoogle)
+
+// inicio sesion con Facebook
+export const loginFacebook = () => signInWithPopup(auth, providerFabook)
+export const providerFacebook = new FacebookAuthProvider()
 
 // cerrar sesion usuario
 export const loginout = () => signOut(auth)
@@ -188,29 +196,35 @@ export const mensajeA = () => sendEmailVerification(auth.currentUser)
 
 // Función para obtener documentos por descripción (categoria)
 export async function Getcategoria(categoria) {
-  const q = query(collection(db, 'Productos'), where('categoria', '==', categoria));
-  const querySnapshot = await getDocs(q);
-  console.log("Número de documentos encontrados:", querySnapshot.size);
-  return querySnapshot;
+  const q = query(
+    collection(db, 'Productos'),
+    where('categoria', '==', categoria)
+  )
+  const querySnapshot = await getDocs(q)
+  console.log('Número de documentos encontrados:', querySnapshot.size)
+  return querySnapshot
 }
 
 export async function Getcategorias(categorias) {
   const promises = categorias.map(async (categoria) => {
-      const q = query(collection(db, 'Productos'), where('categoria', '==', categoria));
-      return await getDocs(q);
-  });
+    const q = query(
+      collection(db, 'Productos'),
+      where('categoria', '==', categoria)
+    )
+    return await getDocs(q)
+  })
 
   // Esperar a que todas las consultas se resuelvan
-  const querySnapshots = await Promise.all(promises);
+  const querySnapshots = await Promise.all(promises)
 
   // Combinar todos los documentos obtenidos en un solo array
-  let combinedResults = [];
+  let combinedResults = []
   querySnapshots.forEach((snapshot) => {
-      snapshot.forEach((doc) => {
-          combinedResults.push(doc);
-      });
-  });
+    snapshot.forEach((doc) => {
+      combinedResults.push(doc)
+    })
+  })
 
-  console.log("Número total de documentos encontrados:", combinedResults.length);
-  return combinedResults;
+  console.log('Número total de documentos encontrados:', combinedResults.length)
+  return combinedResults
 }
