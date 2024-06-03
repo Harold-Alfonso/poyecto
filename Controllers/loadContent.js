@@ -57,6 +57,10 @@ function loadContent(page) {
         import('../Controllers/verwhisky.js');
           
       }
+      if (page == 'carrito.html'){
+        import('../Controllers/carrito.js');
+        
+      }
     })
     .catch(error => console.error('Error loading content:', error));
 }
