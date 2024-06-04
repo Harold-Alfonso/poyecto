@@ -24,7 +24,7 @@ async function Ver() {
                             <img src="${producto.urlproducto}" class="card-img-top" alt="${producto.name}" style="width: 100px; height: auto;"> <!-- Aquí ajusta el tamaño de la imagen -->
                             <div class="card-body">
                                 <h5 class="card-title">${producto.name}</h5>
-                                    <p class="card-text">$${producto.precio}</p>
+                                <p class="card-text">$${producto.precio}</p>
                                 <a href="#" class="btn btn-primary" onclick="agregarAlCarrito('${producto.codigo}', '${producto.name}', '${producto.precio}', '${producto.urlproducto}')">Agregar al Carrito</a>
                             </div>
                         </div>
@@ -55,7 +55,6 @@ window.agregarAlCarrito = function(codigo, nombre, precio, urlproducto) {
                 Setcarrito(codigo, nombre, precio, urlproducto, cantidad)
                     .then(() => {
                         alert('Producto agregado al carrito', codigo);
-                        // Aquí podrías implementar lógica adicional, como actualizar la interfaz de usuario
                     })
                     .catch(error => {
                         console.error('Error al agregar producto al carrito:', error);
