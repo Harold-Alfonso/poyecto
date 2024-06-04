@@ -1,4 +1,4 @@
-import { Getcategoria } from './firebase.js';
+import { Getcategorias, Setcarrito, Getcarrito } from '../Controllers/firebase.js';
 
 const imprimir = document.getElementById('cont');
 
