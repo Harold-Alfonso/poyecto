@@ -1,9 +1,22 @@
+<link rel="stylesheet" href="/CSS/carrito.css">
 <h1>Carrito de Compra</h1>
-<div class="container" id="contcarrito">
-    <!-- Aquí se mostrarán los productos del carrito -->
+<div class="container">
+    <table id="carritoTable">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody id="contcarrito">
+            <!-- Aquí se mostrarán los productos del carrito -->
+        </tbody>
+    </table>
+    <p id="mensajeSinProductos" style="display: none;">Ningún producto agregado por el momento</p>
 </div>
+<div id="totalGeneral">Total: $0</div>
 <div>
     <button id="vaciarCarritoBtn" class="btn btn-danger">Vaciar Carrito</button>
-    <button id="sumarTotalBtn" class="btn btn-primary">Sumar Total</button>
 </div>
-
+<div><button id="pagarBtn" class="btn btn-primary">Pagar</button></div>
