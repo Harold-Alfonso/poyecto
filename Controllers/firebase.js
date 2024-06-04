@@ -60,13 +60,15 @@ export const Setregister = (codigo, name, categoria, precio, urlproducto) =>
     urlproducto,
   })
 
-export const Setcarrito = (codigo, name, precio, urlproducto) =>
+export const Setcarrito = (codigo, name, precio, urlproducto, cantidad) =>
   setDoc(doc(db, 'datoscarrito', codigo), {
     codigo,
     name,
     precio,
     urlproducto,
+    cantidad,
   })
+
 
 // Constante para obtener la referencia a la colección "datoscarrito"
 export const Carritoref = collection(db, 'datoscarrito')
