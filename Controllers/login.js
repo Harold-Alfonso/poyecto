@@ -1,4 +1,4 @@
-import { loginauth, q } from '../controllers/firebase.js'
+import { loginauth, q } from '../Controllers/firebase.js'
 
 const caja = document.getElementById('login')
 const boton = caja['inicio']

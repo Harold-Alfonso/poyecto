@@ -3,7 +3,7 @@ import { Getcategorias, Setcarrito, Getcarrito } from '../Controllers/firebase.j
 const imprimir = document.getElementById('cont');
 
 async function Ver() {
-    const categorias = ['Cerveza', 'Aguardiente', 'Vodka', 'Whisky', 'Vinos y Champañas', 'Tequila', 'Ron', 'Ginebra', 'Brandy', 'No licores', 'Paquetes']; // Define las categorías a consultar
+    const categorias = ['Cerveza', 'Aguardiente', 'Vodka', 'Whisky', 'Vinos y Champañas', 'Tequila', 'Ron', 'Ginebra', 'Brandy', 'Otros', 'Paquetes']; // Define las categorías a consultar
 
     try {
         const querySnapshots = await Getcategorias(categorias);

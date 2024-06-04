@@ -1,9 +1,9 @@
-import { Getcategorias, Setcarrito, Getcarrito } from '../Controllers/firebase.js';
+import { Getcategoria, Setcarrito, Getcarrito } from '../Controllers/firebase.js';
 
 const imprimir = document.getElementById('cont');
 
 async function Ver() {
-    const categoria = 'No licores'; 
+    const categoria = 'Otros'; 
 
     try {
         const querySnapshot = await Getcategoria(categoria);

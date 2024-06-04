@@ -3,7 +3,7 @@ import {
   mensajeA,
   CrearUsuario,
   loginauth,
-} from '../controllers/firebase.js'
+} from '../Controllers/firebase.js'
 
 const specialCharacters = /[!@#$%^&*(),.?":{}|<>]/
 const uppercaseLetter = /[A-Z]/
