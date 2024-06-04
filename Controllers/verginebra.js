@@ -55,7 +55,6 @@ window.agregarAlCarrito = function(codigo, nombre, precio, urlproducto) {
                 Setcarrito(codigo, nombre, precio, urlproducto, cantidad)
                     .then(() => {
                         alert('Producto agregado al carrito', codigo);
-                        // Aquí podrías implementar lógica adicional, como actualizar la interfaz de usuario
                     })
                     .catch(error => {
                         console.error('Error al agregar producto al carrito:', error);
