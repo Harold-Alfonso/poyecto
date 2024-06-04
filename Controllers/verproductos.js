@@ -24,7 +24,7 @@ async function Ver() {
                             <img src="${producto.urlproducto}" class="card-img-top" alt="${producto.name}" style="width: 100px; height: auto;"> <!-- Aquí ajusta el tamaño de la imagen -->
                             <div class="card-body">
                                 <h5 class="card-title">${producto.name}</h5>
-                                <p class="card-text">${producto.precio}</p>
+                                                                <p class="card-text">$${producto.precio}</p>
                                 <a href="#" class="btn btn-primary" onclick="agregarAlCarrito('${producto.codigo}', '${producto.name}', '${producto.precio}', '${producto.urlproducto}')">Agregar al Carrito</a>
                             </div>
                         </div>
@@ -43,6 +43,7 @@ async function Ver() {
 Ver();
 
 window.agregarAlCarrito = function(codigo, nombre, precio, urlproducto) {
+    const cantidad = 1;
     // Verificar si ya existe un producto con el mismo código
     Getcarrito(codigo)
         .then(docSnapshot => {
@@ -51,7 +52,7 @@ window.agregarAlCarrito = function(codigo, nombre, precio, urlproducto) {
                 alert('Producto ya agregado anteriormente. Revise su carrito.');
             } else {
                 // Si el producto no existe, agregarlo a la colección
-                Setcarrito(codigo, nombre, precio, urlproducto)
+                Setcarrito(codigo, nombre, precio, urlproducto, cantidad)
                     .then(() => {
                         alert('Producto agregado al carrito', codigo);
                         // Aquí podrías implementar lógica adicional, como actualizar la interfaz de usuario
