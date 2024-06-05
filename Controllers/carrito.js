@@ -94,23 +94,16 @@ window.decrementarCantidad = async function(button, precio) {
 }
 
 function actualizarTotal(button, cantidad, precio) {
-    // Obtener el elemento td que contiene el total
-    var totalElement = button.closest('tr').querySelector('.total');
-
-    // Calcular el nuevo total
-    var nuevoTotal = cantidad * precio;
-
-    // Agregar el signo de pesos ($) al nuevo total
-    nuevoTotal = '$' + nuevoTotal;
-
-    // Actualizar el contenido HTML del total
-    totalElement.textContent = nuevoTotal;
-
-    // Actualizar el total general después de actualizar el total de un producto
-    actualizarTotalGeneral();
+    
+    var totalElement = button.closest('tr').querySelector('.total');  // Obtener el elemento td que contiene el total
+    var nuevoTotal = cantidad * precio; // Calcular el nuevo total
+    nuevoTotal = '$' + nuevoTotal;  // Agregar el signo de pesos ($) al nuevo total
+    totalElement.textContent = nuevoTotal;   // Actualizar el contenido HTML del total
+    actualizarTotalGeneral();   // Actualizar el total general después de actualizar el total de un producto
 }
 
 function actualizarTotalGeneral() {
+
     // Recalcular el total general sumando todos los totales de los productos
     var totalGeneral = 0;
     var totalElements = document.querySelectorAll('.total');
@@ -118,8 +111,7 @@ function actualizarTotalGeneral() {
         totalGeneral += parseFloat(element.textContent.replace('$', '')); // Convertir el texto a número y sumar
     });
 
-    // Mostrar el total general actualizado
-    mostrarTotalGeneral(totalGeneral);
+    mostrarTotalGeneral(totalGeneral);  // Mostrar el total general actualizado
 }
     
 function mostrarMensajeSinProductos() {
@@ -129,36 +121,37 @@ function mostrarMensajeSinProductos() {
 
 function mostrarTotalGeneral(total) {
     totalGeneralElement.textContent = `Total: $${total}`;
-    // Guardar el total en localStorage
-    localStorage.setItem('totalGeneral', total);
+    localStorage.setItem('totalGeneral', total); // Guardar el total en localStorage
 }
 
-
+async function eliminarcarrito(){
+    await deleteCollection('datoscarrito');
+}
 vaciar.addEventListener('click', async () => {
     try {
-        await deleteCollection('datoscarrito');
+       await eliminarcarrito();
         alert('carrito vaciado exitosamente');
-        // Limpiar la tabla antes de cargar el carrito de nuevo
-        imprimir.innerHTML = "";
-        cargarcarrito();
+        
+        imprimir.innerHTML = ""; // Limpiar la tabla antes de cargar el carrito de nuevo
+        await cargarcarrito();
     } catch (error) {
-        console.error('Error al eliminar colección:', error);
+        console.error('Error al eliminar', error);
     }
 });
 
 pagar.addEventListener('click', async () => {
     try {
-        await deleteCollection('datoscarrito');
+        await eliminarcarrito();
         imprimir.innerHTML = "";
-        cargarcarrito();
-         // Redirigir a la página de pasarela
-         window.location.href = '../Templates/pasarela.html';
+        await cargarcarrito();
+        alert('Redirigiendo a la pasarela de pago...')
+         window.location.href = '../Templates/pasarela.html'; // Redirigir a la página de pasarela
     } catch (error) {
-        console.error('Error al eliminar colección:', error);
+        console.error('Error al eliminar', error);
     }
 });
 
 
-cargarcarrito(); 
+await cargarcarrito(); 
 
 
