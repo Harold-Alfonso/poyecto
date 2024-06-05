@@ -69,7 +69,6 @@ export const Setcarrito = (codigo, name, precio, urlproducto, cantidad) =>
     cantidad,
   })
 
-
 // Constante para obtener la referencia a la colección "datoscarrito"
 export const Carritoref = collection(db, 'datoscarrito')
 
@@ -151,11 +150,13 @@ export const loginout = () => signOut(auth)
 // estado del usuario
 export function userstate() {
   onAuthStateChanged(auth, (user) => {
-    const uid = user.uid
-    console.log(uid)
     if (user) {
+      const uid = user.uid
+      console.log(uid)
     } else {
-      window.location.href = '../templates/home.html'
+      alert(
+        'Debe iniciar sesión para poder agregar productos al carrito de compras'
+      )
     }
   })
 }
@@ -174,7 +175,8 @@ export const CrearUsuario = async (
   direccion,
   telefono,
   email,
-  contra
+  contra,
+  rol
 ) => {
   try {
     const docRef = await addDoc(collection(db, 'usuario'), {
@@ -185,6 +187,7 @@ export const CrearUsuario = async (
       telefono,
       email,
       contra,
+      rol,
     })
     return docRef
   } catch (error) {
