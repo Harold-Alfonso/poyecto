@@ -126,9 +126,13 @@ function mostrarMensajeSinProductos() {
     mensajeSinProductos.style.display = 'block';
 }
 
+
 function mostrarTotalGeneral(total) {
     totalGeneralElement.textContent = `Total: $${total}`;
+    // Guardar el total en localStorage
+    localStorage.setItem('totalGeneral', total);
 }
+
 
 vaciar.addEventListener('click', async () => {
     try {
@@ -145,8 +149,10 @@ vaciar.addEventListener('click', async () => {
 pagar.addEventListener('click', async () => {
     try {
         await deleteCollection('datoscarrito');
-        alert('Su compra ha sido completada');
+        imprimir.innerHTML = "";
         cargarcarrito();
+         // Redirigir a la página de pasarela
+         window.location.href = '../Templates/pasarela.html';
     } catch (error) {
         console.error('Error al eliminar colección:', error);
     }
@@ -154,4 +160,5 @@ pagar.addEventListener('click', async () => {
 
 
 cargarcarrito(); 
+
 
