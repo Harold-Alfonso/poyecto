@@ -19,6 +19,7 @@ async function registro() {
   const Cemail = document.getElementById('confirm-email').value
   const password = document.getElementById('passwordR').value
   const Cpassword = document.getElementById('confirm-passwordR').value
+  const Rol = 'Usuario'
 
   if (password.length < 8) {
     alert('La contraseña debe tener al menos 8 caracteres')
@@ -45,7 +46,7 @@ async function registro() {
     }
     const datos = async () => {
       try {
-        return await CrearUsuario(id, us, RH, dir, tel, Cemail, Cpassword)
+        return await CrearUsuario(id, us, RH, dir, tel, Cemail, Cpassword, Rol)
       } catch (error) {
         throw error
       }
