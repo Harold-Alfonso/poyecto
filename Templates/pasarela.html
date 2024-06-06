@@ -18,7 +18,7 @@
         </header>
         <div class="main-content">
             <div class="section datos">
-                <h3>1 Tus datos</h3>
+                <h3>Tus datos</h3>
                 <div class="datos-content">
                     <img src="../Resources/IMG/user.png" alt="User Icon" class="user-icon">
                     <div class="user-info">
@@ -29,53 +29,53 @@
                 <div><a href="#" class="modificar-datos">Modificar mis datos</a></div>
             </div>
             <div class="section pago">
-                <h3>2 Selecciona el medio de pago</h3>
+                <h3>Selecciona el medio de pago</h3>
                 <div class="pago-content">
                     <h4>Tarjeta de crédito o débito</h4>
                     <div class="tarjetas">
-                        <button onclick="ElegirMetodo('Visa')">
+                        <button id="visa">
                             <img src="../Resources/IMG/visa.png" alt="Visa">
                         </button>
-                        <button onclick="ElegirMetodo('Mastercard')">
+                        <button id="mastercard">
                             <img src="../Resources/IMG/mastercard.png" alt="Mastercard">
                         </button>
-                        <button onclick="ElegirMetodo('Codensa')">
+                        <button id="codensa">
                             <img src="../Resources/IMG/codensa.jpg" alt="Codensa">
                         </button>
                     </div>
                     <h4>Débito bancario PSE</h4>
                     <div class="pse">
-                        <button onclick="ElegirMetodo('PSE')">
+                        <button id="pse">
                             <img src="../Resources/IMG/pse.png" alt="PSE">
                         </button>
                         <p>Recuerda verificar el monto máximo que tienes habilitado para pagos por internet. Acepta</p>
                         <div>
-                            <button onclick="ElegirMetodo('Nequi')">
+                            <button id="nequi">
                                 <img src="../Resources/IMG/nequi.webp" alt="Nequi">
                             </button>
-                            <button onclick="ElegirMetodo('Daviplata')">
+                            <button id="davidplata">
                                 <img src="../Resources/IMG/davidplata.png" alt="Daviplata">
                             </button>
                         </div>
                     </div>
                     <h4>Pago en efectivo</h4>
                     <div class="efectivo">
-                        <button onclick="ElegirMetodo('Efecty')">
+                        <button id = "efecty">
                             <img src="../Resources/IMG/efecty.png" alt="Efecty">
                         </button>
-                        <button onclick="ElegirMetodo('Supergiros')">
+                        <button id = "supergiros">
                             <img src="../Resources/IMG/supergiros.png" alt="Supergiros">
                         </button>
                     </div>
                     <h4>Pago en bancos</h4>
                     <div class="bancos">
-                        <button onclick="ElegirMetodo('Banco de Bogotá')">
+                        <button id="bancodebogota">
                             <img src="../Resources/IMG/bancodebogota.png" alt="Banco de Bogotá">
                         </button>
-                        <button onclick="ElegirMetodo('Bancolombia')">
+                        <button id="bancolombia">
                             <img src="../Resources/IMG/bancolombia.png" alt="Bancolombia">
                         </button>
-                        <button onclick="ElegirMetodo('Davivienda')">
+                        <button id="davivienda">
                             <img src="../Resources/IMG/davivienda.png" alt="Davivienda">
                         </button>
                     </div>
@@ -86,10 +86,11 @@
                 <p>Referencia: <span id="referencia"></span></p>
                 <p>Metodo de pago: <span id="metodopago"></span></p>
                 <p><span id="total" class="total"></span></p>
+                <button id="pagar">Pagar</button>
             </div>
         </div>
         </div>
     </div>
 </body>
-<script src="../Controllers/pasarela.js"></script>
+<script type="module" src="../Controllers/pasarela.js"></script>
 </html>
