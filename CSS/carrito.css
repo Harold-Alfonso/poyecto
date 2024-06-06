@@ -34,10 +34,13 @@
     background-color: #031924; /* Color de fondo */
     color: white; /* Color del texto */
     padding: 10px 20px; /* Espaciado interno */
-    border: none; /* Sin borde */
+    border: 10px; /* Sin borde */
     border-radius: 5px; /* Bordes redondeados */
     cursor: pointer; /* Cambio de cursor al pasar el mouse */
     transition: background-color 0.3s; /* Transición suave del color de fondo */
+    margin-right: 6px;
+    margin-top: 5px;
+
 }
 
 #vaciarCarritoBtn:hover {
@@ -48,12 +51,14 @@
     background-color: #031924; /* Color de fondo */
     color: white; /* Color del texto */
     padding: 10px 20px; /* Espaciado interno */
-    border: none; /* Sin borde */
+    border: 10px; /* Sin borde */
     border-radius: 5px; /* Bordes redondeados */
     cursor: pointer; /* Cambio de cursor al pasar el mouse */
     transition: background-color 0.3s; /* Transición suave del color de fondo */
+    margin-top: 5px;
 }
 
 #pagarBtn:hover {
     background-color: #024a35; /* Color de fondo al pasar el mouse */
+
 }
