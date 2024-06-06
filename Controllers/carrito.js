@@ -10,7 +10,7 @@ const pagar = document.getElementById('pagarBtn');
 const totalGeneralElement = document.getElementById('totalGeneral');
 const mensajeSinProductos = document.getElementById('mensajeSinProductos');
 
-async function cargarcarrito() {
+export async function cargarcarrito() {
     try {
         const querySnapshot = await GetCarritoDocs();
         let html = "";
@@ -152,6 +152,4 @@ pagar.addEventListener('click', async () => {
 });
 
 
-await cargarcarrito(); 
-
-
+await cargarcarrito();
